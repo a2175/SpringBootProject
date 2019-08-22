@@ -1,4 +1,4 @@
-package com.myboot.springboot.common;
+package com.myboot.springboot.common.resolver;
 
 import java.util.Enumeration;
 
@@ -10,7 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.myboot.springboot.common.CommandMap;
+import com.myboot.springboot.common.common.CommandMap;
 
 public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver{
     @Override
@@ -34,7 +34,6 @@ public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver{
                 commandMap.put(key, (values.length > 1) ? values:values[0]);
             }
         }
-        commandMap.put("resolver", "resolver");
 
         return commandMap;
     }

@@ -1,4 +1,4 @@
-package com.myboot.springboot.common;
+package com.myboot.springboot.common.common;
 
 import java.util.HashMap;
 import java.util.Map;

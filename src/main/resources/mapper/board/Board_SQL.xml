@@ -9,4 +9,50 @@
         ]]>
     </select>
     
+    <select id="detail" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+        	SELECT
+            	*
+        	FROM
+            	board
+        	WHERE
+            	idx = #{idx}
+    	]]>
+    </select>
+    
+    <insert id="insert" parameterType="hashmap">
+		<![CDATA[
+        	INSERT INTO 
+        		board
+        	SET
+				name = #{name},
+				pw = #{pw},
+				subject = #{subject},
+				content = #{content},
+				date = now()
+    	]]>
+	</insert>
+	
+	<update id="update" parameterType="hashmap">
+    	<![CDATA[
+        	UPDATE board
+        	SET 
+        		name = #{name},
+        		subject = #{subject},
+        		content = #{content}
+        	WHERE 
+        		idx = #{idx}
+        		AND pw = #{pw}
+    	]]>
+	</update>
+	
+	<delete id="delete" parameterType="hashmap">
+    	<![CDATA[
+        	DELETE FROM board
+        	WHERE 
+        		idx = #{idx}
+        		AND pw = #{pw}
+    	]]>
+	</delete>
+    
 </mapper>

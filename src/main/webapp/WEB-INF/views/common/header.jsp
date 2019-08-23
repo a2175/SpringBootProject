@@ -18,7 +18,7 @@
     </div>
     <nav id="gnb">
       <ul>
-        <li><a href="/board">게시판</a></li>
+        <li><a href="/board/openBoardList.do">게시판</a></li>
         <li><a href="/chat">채팅</a></li>
       </ul>
     </nav>

@@ -10,71 +10,61 @@ function gfn_isNull(str) {
 }
 
 function ComSubmit(opt_formId) {
-    this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-    this.url = "";
-    this.method = "post";
-    
-    if(this.formId == "commonForm"){
-        $("#commonForm").empty();
+    var formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
+    var formUrl = "";
+    var formMethod = "post";
+
+    if(formId == "commonForm"){
+        document.getElementById("commonForm").innerHTML = "";
     }
-     
+
     this.setUrl = function setUrl(url){
-        this.url = url;
+        formUrl = url;
     };
-    
+
     this.setMethod = function setMethod(method){
-        this.method = method;
+        formMethod = method;
     };
-     
+
     this.addParam = function addParam(key, value){
-        $("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+        document.getElementById(formId).appendChild(input);
     };
-     
+
     this.submit = function submit(){
-        var frm = $("#"+this.formId)[0];
-        frm.action = this.url;
-        frm.method = this.method;
+        var frm = document.getElementById(formId);
+        frm.action = formUrl;
+        frm.method = formMethod;
         frm.submit();
     };
 }
 
-var fv_ajaxCallback = "";
-function ComAjax(opt_formId){
-    this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-    this.url = "";
-    fv_ajaxCallback = "";
-    
-    if(this.formId == "commonForm"){
-        $("#commonForm").empty();
-    }
-     
+function ComAjax(form){
+    var formData = new FormData(form);
+    var formUrl = "";
+    var fv_ajaxCallback = "";
+
     this.setUrl = function setUrl(url){
-        this.url = url;
+        formUrl = url;
     };
-     
+
     this.setCallback = function setCallback(callBack){
         fv_ajaxCallback = callBack;
     };
- 
-    this.addParam = function addParam(key,value){
-        $("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
+
+    this.addParam = function addParam(key, value){
+        formData.append(key, value);
     };
-     
+
     this.ajax = function ajax(){
-        $.ajax({
-            url : this.url,   
-            type : "POST",  
-            data : $("#" + this.formId).serialize(),
-            async : false,
-            success : function(data, status) {
-                if(typeof(fv_ajaxCallback) == "function"){
-                    fv_ajaxCallback(data);
-                }
-                else {
-                    eval(fv_ajaxCallback + "(data);");
-                }
-            }
-        });
+        fetch(formUrl, {
+            method: "POST",
+            body: formData
+        }).then(data => data.text())
+          .then(eval(fv_ajaxCallback));
     };
 }
 

@@ -21,5 +21,21 @@ public class BoardDAO {
     public List<Map<String, Object>> selectBoardList() {
     	return sqlSession.selectList("board.list");
     }
+    
+    public Map<String, Object> selectBoardDetail(Map<String, Object> map) {
+    	return sqlSession.selectOne("board.detail", map);
+    }
+    
+    public void insertBoard(Map<String, Object> map) throws Exception{
+    	sqlSession.insert("board.insert", map);
+    }
+    
+	public int updateBoard(Map<String, Object> map) throws Exception {
+		return sqlSession.update("board.update", map);
+	}
+
+	public int deleteBoard(Map<String, Object> map) throws Exception {
+		return sqlSession.delete("board.delete", map);
+	}
 
 }

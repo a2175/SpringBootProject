@@ -1,7 +1,13 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.10v
+#version = 1.20v
+
+[SpringBootProject 1.20v]
+1. 게시글 상세보기 구축
+2. 게시글 등록 구축
+3. 게시글 수정 구축
+4. 게시글 삭제 구축
 
 [SpringBootProject 1.10v]
 1. 게시판 글 목록보기 구축

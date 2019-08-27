@@ -3,6 +3,7 @@ package com.myboot.springboot.board.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,24 @@ public class BoardDAO {
     @Autowired
     private SqlSessionTemplate sqlSession;
  
-    public List<Map<String, Object>> selectBoardList() {
-    	return sqlSession.selectList("board.list");
+    public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
+        String strPageIndex = (String)map.get("page");
+
+        int nPageIndex = 0;
+        int nPageRow = 15;
+         
+        if(StringUtils.isEmpty(strPageIndex) == false){
+            nPageIndex = Integer.parseInt(strPageIndex) - 1;
+        }
+
+        map.put("START", (nPageIndex * nPageRow));
+        map.put("END", nPageRow);
+        
+    	return sqlSession.selectList("board.list", map);
+    }
+    
+    public Map<String, Object> selectListNum() {
+    	return sqlSession.selectOne("board.listNum");
     }
     
     public Map<String, Object> selectBoardDetail(Map<String, Object> map) {

@@ -1,6 +1,6 @@
 package com.myboot.springboot.board.service;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,8 +16,13 @@ public class BoardServiceImpl implements BoardService {
     private BoardDAO boardDAO;
 	
 	@Override
-	public List<Map<String, Object>> selectBoardList() throws Exception {
-		return boardDAO.selectBoardList();
+	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		resultMap.put("list", boardDAO.selectBoardList(map));
+		resultMap.put("listNum", boardDAO.selectListNum().get("count"));
+
+		return resultMap;
 	}
 	
 	@Override

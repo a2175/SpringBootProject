@@ -5,7 +5,21 @@
 
     <select id="list" parameterType="hashmap" resultType="hashmap">
         <![CDATA[			
-			SELECT * FROM board ORDER BY idx DESC
+			SELECT 
+				*
+			FROM 
+				board 
+			ORDER BY idx DESC 
+			LIMIT #{START}, #{END}
+        ]]>
+    </select>
+    
+    <select id="listNum" resultType="hashmap">
+        <![CDATA[			
+			SELECT 
+				count(*) AS count 
+			FROM 
+				board
         ]]>
     </select>
     

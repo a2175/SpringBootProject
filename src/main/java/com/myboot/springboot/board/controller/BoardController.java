@@ -16,10 +16,10 @@ public class BoardController {
     private BoardService boardService;
 	
 	@RequestMapping("/board/openBoardList.do")
-	public ModelAndView openBoardList() throws Exception {
+	public ModelAndView openBoardList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
-        
-        mv.addObject("list", boardService.selectBoardList());
+        		
+        mv.addObject("data", boardService.selectBoardList(commandMap.getMap()));
         
         return mv;
 	}
@@ -27,7 +27,7 @@ public class BoardController {
 	@RequestMapping("/board/openBoardDetail.do")
 	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
-        
+
 		mv.addObject("data", boardService.selectBoardDetail(commandMap.getMap()));
 		
         return mv;

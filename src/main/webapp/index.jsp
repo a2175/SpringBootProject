@@ -22,7 +22,8 @@
         <h2>채팅</h2>
         <div>
             <br><br>
-
+			19-08-27 채팅 구축
+			
         </div>
     </section>
 </section>

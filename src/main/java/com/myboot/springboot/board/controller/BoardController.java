@@ -15,7 +15,7 @@ public class BoardController {
 	@Resource(name="boardService")
     private BoardService boardService;
 	
-	@RequestMapping("/board/openBoardList.do")
+	@RequestMapping(value="/board/openBoardList.do")
 	public ModelAndView openBoardList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
         		
@@ -24,7 +24,7 @@ public class BoardController {
         return mv;
 	}
 	
-	@RequestMapping("/board/openBoardDetail.do")
+	@RequestMapping(value="/board/openBoardDetail.do")
 	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
 
@@ -33,7 +33,7 @@ public class BoardController {
         return mv;
 	}
 	
-	@RequestMapping("/board/openBoardWrite.do")
+	@RequestMapping(value="/board/openBoardWrite.do")
 	public ModelAndView openBoardWrite(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardWrite");
         

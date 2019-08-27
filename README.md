@@ -1,7 +1,10 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.20v
+#version = 1.30v
+
+[SpringBootProject 1.30v]
+1. 게시판 페이징 구축
 
 [SpringBootProject 1.20v]
 1. 게시글 상세보기 구축

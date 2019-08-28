@@ -1,7 +1,10 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.40v
+#version = 1.50v
+
+[SpringBootProject 1.50v]
+1. 게시글 검색기능 구축
 
 [SpringBootProject 1.40v]
 1. 채팅 구축

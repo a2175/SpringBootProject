@@ -133,9 +133,9 @@ function gfn_renderPaging(params){
  
 function _movePage(value){
     if(gfn_isNull(gfv_keyword)) {
-        location.href = gfv_eventName+value;
+        location.href = gfv_eventName + "?page=" + value;
     }
     else {
-        location.href = gfv_eventName+value+"/"+gfv_keyword;
+        location.href = gfv_eventName + "?page=" + value + "&keyword=" + gfv_keyword;
     }
 }

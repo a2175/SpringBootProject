@@ -23,9 +23,7 @@
 			<c:forEach var="row" items="${data.list}" varStatus="status">
 				<tr>
 					<td>${row.idx }</td>
-					<td class="al_l">
-						<a href="/board/openBoardDetail.do?idx=${row.idx }" id="title">${row.subject }</a>
-						<input type="hidden" id="idx" value="${row.idx }"></td>
+					<td class="al_l"><a href="/board/openBoardDetail.do?idx=${row.idx }">${row.subject }</a>
 					<td>${row.name }</td>
 					<td>${row.date }</td>
 				</tr>
@@ -33,6 +31,8 @@
 		</tbody>
 	</table>
 	<div class="btn_group">
+		 제목 검색: <input type="text" id="keyword" name="keyword" value="${param.keyword}">
+      	<a href="#this" class="btn-submit" id="search">검색</a>
 		<a class="btn-default" href="/board/openBoardWrite.do">작성</a>
 	</div>
 	<div id="PAGE_NAVI" style="margin: auto; display: table;"></div>
@@ -43,9 +43,20 @@
 	   divId : "PAGE_NAVI",
 	   pageIndex : "${param.page}",
 	   totalCount : "${data.listNum}",
-	   eventName : "/board/openBoardList.do?page="
+	   eventName : gfn_isNull("${param.keyword}") ? "/board/openBoardList.do" : "/board/openBoardSearchList.do",
+	   keyword : "${param.keyword}"
 	};
 	gfn_renderPaging(params);
+	
+	document.getElementById("search").addEventListener('click', function(e){
+	    e.preventDefault();
+	    fn_openBoardSearchList();
+	});
+ 
+	function fn_openBoardSearchList() {
+	   keyword = document.getElementById("keyword").value;
+	   location.href = "/board/openBoardSearchList.do?&keyword=" + keyword;
+	}
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

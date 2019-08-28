@@ -18,9 +18,18 @@ public class BoardController {
 	@RequestMapping(value="/board/openBoardList.do")
 	public ModelAndView openBoardList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
-        		
+
         mv.addObject("data", boardService.selectBoardList(commandMap.getMap()));
-        
+
+        return mv;
+	}
+	
+	@RequestMapping(value="/board/openBoardSearchList.do")
+	public ModelAndView openBoardSearchList(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("board/boardList");
+
+        mv.addObject("data", boardService.selectBoardSearchList(commandMap.getMap()));
+
         return mv;
 	}
 	

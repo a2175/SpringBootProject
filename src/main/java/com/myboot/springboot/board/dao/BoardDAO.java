@@ -39,6 +39,26 @@ public class BoardDAO {
     	return sqlSession.selectOne("board.listNum");
     }
     
+    public List<Map<String, Object>> selectBoardSearchList(Map<String, Object> map) {
+        String strPageIndex = (String)map.get("page");
+
+        int nPageIndex = 0;
+        int nPageRow = 15;
+         
+        if(StringUtils.isEmpty(strPageIndex) == false){
+            nPageIndex = Integer.parseInt(strPageIndex) - 1;
+        }
+
+        map.put("START", (nPageIndex * nPageRow));
+        map.put("END", nPageRow);
+        
+    	return sqlSession.selectList("board.searchList", map);
+    }
+    
+    public Map<String, Object> selectSearchListNum(Map<String, Object> map) {
+    	return sqlSession.selectOne("board.searchListNum", map);
+    }
+    
     public Map<String, Object> selectBoardDetail(Map<String, Object> map) {
     	return sqlSession.selectOne("board.detail", map);
     }

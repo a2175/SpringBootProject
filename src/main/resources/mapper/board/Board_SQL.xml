@@ -23,6 +23,30 @@
         ]]>
     </select>
     
+    <select id="searchList" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[			
+			SELECT 
+				*
+			FROM 
+				board
+			WHERE
+				subject LIKE CONCAT('%',#{keyword},'%')
+			ORDER BY idx DESC 
+			LIMIT #{START}, #{END}
+        ]]>
+    </select>
+    
+    <select id="searchListNum" resultType="hashmap">
+        <![CDATA[			
+			SELECT 
+				count(*) AS count 
+			FROM 
+				board
+			WHERE
+				subject LIKE CONCAT('%',#{keyword},'%')
+        ]]>
+    </select>
+    
     <select id="detail" parameterType="hashmap" resultType="hashmap">
         <![CDATA[
         	SELECT

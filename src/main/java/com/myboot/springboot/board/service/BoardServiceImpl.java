@@ -18,9 +18,19 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
-		
+
 		resultMap.put("list", boardDAO.selectBoardList(map));
 		resultMap.put("listNum", boardDAO.selectListNum().get("count"));
+
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectBoardSearchList(Map<String, Object> map) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		
+		resultMap.put("list", boardDAO.selectBoardSearchList(map));
+		resultMap.put("listNum", boardDAO.selectSearchListNum(map).get("count"));
 
 		return resultMap;
 	}

@@ -43,7 +43,7 @@
 	   divId : "PAGE_NAVI",
 	   pageIndex : "${param.page}",
 	   totalCount : "${data.listNum}",
-	   eventName : gfn_isNull("${param.keyword}") ? "/board/openBoardList.do" : "/board/openBoardSearchList.do",
+	   eventName : "/board/openBoardList.do",
 	   keyword : "${param.keyword}"
 	};
 	gfn_renderPaging(params);
@@ -52,10 +52,17 @@
 	    e.preventDefault();
 	    fn_openBoardSearchList();
 	});
+	
+	document.getElementById("keyword").addEventListener('keydown', function(e){
+		if (e.keyCode == 13) {
+		  e.preventDefault();
+		  fn_openBoardSearchList();
+		}
+	});
  
 	function fn_openBoardSearchList() {
 	   keyword = document.getElementById("keyword").value;
-	   location.href = "/board/openBoardSearchList.do?&keyword=" + keyword;
+	   location.href = "/board/openBoardList.do\?&keyword=" + keyword;
 	}
 </script>
 

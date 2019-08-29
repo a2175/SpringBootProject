@@ -1,7 +1,11 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.50v
+#version = 1.51v
+
+[SpringBootProject 1.51v]
+1. 게시글 검색기능 수정
+2. 게시글 검색 엔터키에 동작하도록 수정
 
 [SpringBootProject 1.50v]
 1. 게시글 검색기능 구축

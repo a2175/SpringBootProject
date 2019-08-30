@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="comment"> 
+
+    <select id="list" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[			
+			SELECT 
+				*
+			FROM 
+				comment
+			WHERE
+            	board_idx = #{idx}
+			ORDER BY idx
+        ]]>
+    </select>
+    
+    <select id="listNum" parameterType="hashmap" resultType="Integer">
+        <![CDATA[			
+			SELECT 
+				count(*)
+			FROM 
+				comment
+			WHERE
+            	board_idx = #{idx}
+        ]]>
+    </select>
+     
+    <insert id="insert" parameterType="hashmap">
+		<![CDATA[
+        	INSERT INTO 
+        		comment
+        	SET
+				name = #{name},
+				pw = #{pw},
+				content = #{content},
+				board_idx = #{idx},
+				date = now()
+    	]]>
+	</insert>
+	
+	<delete id="delete" parameterType="hashmap">
+    	<![CDATA[
+        	DELETE FROM comment
+        	WHERE 
+        		idx = #{idx}
+        		AND pw = #{pw}
+    	]]>
+	</delete>
+     
+</mapper>

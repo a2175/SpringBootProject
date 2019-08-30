@@ -35,7 +35,7 @@ public class BoardDAO {
     	return sqlSession.selectList("board.list", map);
     }
     
-    public Map<String, Object> selectListNum() {
+    public int selectBoardListNum() {
     	return sqlSession.selectOne("board.listNum");
     }
     
@@ -55,7 +55,7 @@ public class BoardDAO {
     	return sqlSession.selectList("board.searchList", map);
     }
     
-    public Map<String, Object> selectSearchListNum(Map<String, Object> map) {
+    public int selectBoardSearchListNum(Map<String, Object> map) {
     	return sqlSession.selectOne("board.searchListNum", map);
     }
     

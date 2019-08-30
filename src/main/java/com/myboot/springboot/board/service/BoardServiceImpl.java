@@ -20,7 +20,7 @@ public class BoardServiceImpl implements BoardService {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 
 		resultMap.put("list", boardDAO.selectBoardList(map));
-		resultMap.put("listNum", boardDAO.selectListNum().get("count"));
+		resultMap.put("listNum", boardDAO.selectBoardListNum());
 
 		return resultMap;
 	}
@@ -30,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		
 		resultMap.put("list", boardDAO.selectBoardSearchList(map));
-		resultMap.put("listNum", boardDAO.selectSearchListNum(map).get("count"));
+		resultMap.put("listNum", boardDAO.selectBoardSearchListNum(map));
 
 		return resultMap;
 	}

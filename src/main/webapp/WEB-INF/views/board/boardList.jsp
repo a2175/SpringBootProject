@@ -23,7 +23,7 @@
 			<c:forEach var="row" items="${data.list}" varStatus="status">
 				<tr>
 					<td>${row.idx }</td>
-					<td class="al_l"><a href="/board/openBoardDetail.do?idx=${row.idx }">${row.subject }</a>
+					<td class="al_l"><a href="/board/openBoardDetail.do?idx=${row.idx }">${row.subject } <c:if test="${row.commentNum > 0}">[${row.commentNum}]</c:if></a>
 					<td>${row.name }</td>
 					<td>${row.date }</td>
 				</tr>
@@ -62,7 +62,7 @@
  
 	function fn_openBoardSearchList() {
 	   keyword = document.getElementById("keyword").value;
-	   location.href = "/board/openBoardList.do\?&keyword=" + keyword;
+	   location.href = "/board/openBoardList.do?keyword=" + keyword;
 	}
 </script>
 

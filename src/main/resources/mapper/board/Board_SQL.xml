@@ -6,7 +6,8 @@
     <select id="list" parameterType="hashmap" resultType="hashmap">
         <![CDATA[			
 			SELECT 
-				*
+				*,
+				(SELECT count(IDX) FROM comment WHERE board_idx = board.idx) AS commentNum
 			FROM 
 				board 
 			ORDER BY idx DESC 
@@ -14,10 +15,10 @@
         ]]>
     </select>
     
-    <select id="listNum" resultType="hashmap">
+    <select id="listNum" parameterType="hashmap" resultType="Integer">
         <![CDATA[			
 			SELECT 
-				count(*) AS count 
+				count(*)
 			FROM 
 				board
         ]]>
@@ -36,10 +37,10 @@
         ]]>
     </select>
     
-    <select id="searchListNum" resultType="hashmap">
+    <select id="searchListNum" parameterType="hashmap" resultType="Integer">
         <![CDATA[			
 			SELECT 
-				count(*) AS count 
+				count(*)
 			FROM 
 				board
 			WHERE

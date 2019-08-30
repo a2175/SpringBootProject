@@ -1,7 +1,12 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.51v
+#version = 1.60v
+
+[SpringBootProject 1.60v]
+1. 댓글 등록 구축
+2. 댓글 삭제 구축
+3. DAO 메소드명 수정
 
 [SpringBootProject 1.51v]
 1. 게시글 검색기능 수정

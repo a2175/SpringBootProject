@@ -22,5 +22,5 @@ public class ResolverConfig implements WebMvcConfigurer {
         resolvers.add(customMapArgumentResolver());
         WebMvcConfigurer.super.addArgumentResolvers(resolvers);
     }
-	
+    	
 }

@@ -1,7 +1,12 @@
 SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
 ==============================
 
-#version = 1.60v
+#version = 1.70v
+
+[SpringBootProject 1.70v]
+1. Log4j2 설정
+2. Interceptor 설정
+3. LoggerInterceptor 설정
 
 [SpringBootProject 1.60v]
 1. 댓글 등록 구축

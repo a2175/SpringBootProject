@@ -1,7 +1,13 @@
-SpringBoot를 사용해서 만든 간단한 CRUD 게시판입니다.
+SpringBoot + Mysql + MyBatis
 ==============================
+SpringBoot를 사용해서 만든 간단한 CRUD 게시판과
+WebSocket을 사용한 실시간 채팅 프로젝트입니다.
 
-#version = 1.70v
+#version = 1.80v
+
+[SpringBootProject 1.80v]
+1. 채팅에 WebSocket을 사용하도록 변경
+2. MyBatis Log4j2 설정
 
 [SpringBootProject 1.70v]
 1. Log4j2 설정

@@ -7,6 +7,6 @@ public interface ChatService {
 
 	List<Map<String, Object>> selectChatList() throws Exception;
 	
-	void insertChat(Map<String, Object> map) throws Exception;
+	void insertChat(Map<String, String> map) throws Exception;
 	
 }

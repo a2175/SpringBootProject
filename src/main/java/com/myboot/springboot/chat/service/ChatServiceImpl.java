@@ -21,7 +21,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void insertChat(Map<String, Object> map) throws Exception {
+	public void insertChat(Map<String, String> map) throws Exception {
 		chatDAO.insertChat(map);
 	}
 	

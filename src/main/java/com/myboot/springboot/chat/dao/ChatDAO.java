@@ -22,7 +22,7 @@ public class ChatDAO {
     	return sqlSession.selectList("chat.list");
     }
 
-	public void insertChat(Map<String, Object> map) {
+	public void insertChat(Map<String, String> map) {
 		sqlSession.insert("chat.insert", map);
 	}
     

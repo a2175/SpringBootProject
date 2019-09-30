@@ -5,9 +5,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
 
 import com.myboot.springboot.chat.service.ChatService;
 import com.myboot.springboot.common.common.CommandMap;
@@ -25,14 +28,21 @@ public class ChatController {
         return mv;
 	}
 	
-	@RequestMapping(value="/chat/selectChatList.do")
-	public List<Map<String, Object>> selectChatList(CommandMap commandMap) throws Exception {
+	@MessageMapping("/list")
+    @SendTo("/list")
+    public List<Map<String, Object>> list() throws Exception { 
         return chatService.selectChatList();
-	}
-	
-	@RequestMapping(value="/chat/insertChat.do")
-    public void insertChat(CommandMap commandMap) throws Exception{
-        chatService.insertChat(commandMap.getMap());
     }
+	
+	@MessageMapping("/insert")
+    @SendTo("/update")
+    public Map<String, String> insert(Map<String, String> map) throws Exception {   
+        map.put("name", HtmlUtils.htmlEscape(map.get("name")));
+        map.put("content", HtmlUtils.htmlEscape(map.get("content")));
 
+        chatService.insertChat(map);
+        
+        return map;
+    }
+	
 }

@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <div class="board_write auto-center">
-    <form action="/board/insertBoard.do" method="post">
+    <form action="<c:url value='/board/insertBoard.do'/>" method="post">
     <fieldset><legend>글작성</legend>
         <h3>글작성</h3>
         <div class="table">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="btn_group">
-            <a class="btn-default" href="/board/openBoardList.do">취소</a>
+            <a class="btn-default" href="<c:url value='/board/openBoardList.do'/>">취소</a>
             <button class="btn-submit" type="submit">완료</button>
         </div>
     </fieldset>

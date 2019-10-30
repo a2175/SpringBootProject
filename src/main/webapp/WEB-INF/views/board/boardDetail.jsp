@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="btn_group">
-        <a class="btn-default" href="/board/openBoardList.do">목록</a>
-        <a class="btn-submit" href="/board/openBoardUpdate.do?idx=${param.idx}">수정</a>
-        <a class="btn-submit" href="/board/openBoardDelete.do?idx=${param.idx}">삭제</a>
+        <a class="btn-default" href="<c:url value='/board/openBoardList.do'/>">목록</a>
+        <a class="btn-submit" href="<c:url value='/board/openBoardUpdate.do?idx=${param.idx}'/>">수정</a>
+        <a class="btn-submit" href="<c:url value='/board/openBoardDelete.do?idx=${param.idx}'/>">삭제</a>
     </div>
 </div>
 
@@ -46,7 +46,7 @@
     
     function fn_selectCommentList() {
         var comAjax = new ComAjax();
-        comAjax.setUrl("/comment/selectCommentList.do");
+        comAjax.setUrl("<c:url value='/comment/selectCommentList.do'/>");
         comAjax.setCallback("fn_selectCommentListCallback");
         comAjax.addParam("idx", "${param.idx}");
         comAjax.ajax();
@@ -61,7 +61,7 @@
                         "<div class='lbl'>" + data.list[key].name + "</div>" +
                         "<div class='desc'>" + data.list[key].content + "</div>" +
                         "<div class='date'>" + data.list[key].date.replace('T', ' ').substr(0, 19) + "</div>" +
-                        "<div class='delete'>" + "<a href='#' id='opendel'><img src='/resources/img/delete.jpg'></a>" + "</div>" +
+                        "<div class='delete'>" + "<a href='#' id='opendel'><img src='<c:url value='/resources/img/delete.jpg'/>'></a>" + "</div>" +
                         "<input type='hidden' id='idx' value=" + data.list[key].idx + ">" +
                     "</div>";
         };
@@ -90,7 +90,7 @@
         
         if(fn_checkComment(name, pw, content)) {       
             var comAjax = new ComAjax();
-            comAjax.setUrl("/comment/insertComment.do");
+            comAjax.setUrl("<c:url value='/comment/insertComment.do'/>");
             comAjax.setCallback('fn_selectCommentList');
             comAjax.addParam("idx", "${param.idx}");
             comAjax.addParam("name", name);
@@ -131,7 +131,7 @@
         var idx = obj.parentElement.parentElement.querySelector("#idx").value;
         var pw = obj.parentElement.querySelector("#commentpw").value;
         var comAjax = new ComAjax();
-        comAjax.setUrl("/comment/deleteComment.do");
+        comAjax.setUrl("<c:url value='/comment/deleteComment.do'/>");
         comAjax.setCallback("fn_deleteCommentCallback");
         comAjax.addParam("idx", idx);
         comAjax.addParam("pw", pw);

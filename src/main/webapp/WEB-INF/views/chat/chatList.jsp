@@ -18,7 +18,7 @@
 </div>
 
 <script type="text/javascript">
-   	var socket = new SockJS("<c:url value='/chatWebSocket'/>"); 
+   	var socket = new SockJS("http://" + location.hostname + ":8080" + "<c:url value='/chatWebSocket'/>"); 
     var stompClient = Stomp.over(socket);
     
     stompClient.connect({}, function (frame) {

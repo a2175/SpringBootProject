@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
@@ -16,12 +17,13 @@ import com.myboot.springboot.chat.service.ChatService;
 import com.myboot.springboot.common.common.CommandMap;
 
 @RestController
+@RequestMapping("/chat")
 public class ChatController {
 	
 	@Resource(name="chatService")
     private ChatService chatService;
 	
-	@RequestMapping(value="/chat/openChatList.do")
+	@RequestMapping(value="", method=RequestMethod.GET)
 	public ModelAndView openChatList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("chat/chatList");
 		

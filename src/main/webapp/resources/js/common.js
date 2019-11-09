@@ -45,10 +45,15 @@ function ComSubmit(opt_formId) {
 function ComAjax(form){
     var formData = new FormData(form);
     var formUrl = "";
+    var formMethod = "POST";
     var fv_ajaxCallback = "";
 
     this.setUrl = function setUrl(url){
         formUrl = url;
+    };
+    
+    this.setMethod = function setMethod(method){
+        formMethod = method;
     };
 
     this.setCallback = function setCallback(callBack){
@@ -61,8 +66,8 @@ function ComAjax(form){
 
     this.ajax = function ajax(){
         fetch(formUrl, {
-            method: "POST",
-            body: formData
+            method: formMethod,
+            body: formMethod == "POST" ? formData : null,
         }).then(data => data.text())
           .then(eval(fv_ajaxCallback));
     };
@@ -132,10 +137,12 @@ function gfn_renderPaging(params){
 }
  
 function _movePage(value){
+	console.log(gfv_keyword);
+	console.log(gfn_isNull(gfv_keyword));
     if(gfn_isNull(gfv_keyword)) {
-        location.href = gfv_eventName + "?page=" + value;
+        location.href = gfv_eventName + value;
     }
     else {
-        location.href = gfv_eventName + "?page=" + value + "&keyword=" + gfv_keyword;
+        location.href = gfv_eventName + value + "/" + gfv_keyword;
     }
 }

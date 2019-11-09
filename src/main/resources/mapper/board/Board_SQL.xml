@@ -37,7 +37,7 @@
         ]]>
     </select>
     
-    <select id="searchListNum" parameterType="hashmap" resultType="Integer">
+    <select id="searchListNum" parameterType="String" resultType="Integer">
         <![CDATA[			
 			SELECT 
 				count(*)
@@ -48,7 +48,7 @@
         ]]>
     </select>
     
-    <select id="detail" parameterType="hashmap" resultType="hashmap">
+    <select id="detail" parameterType="Integer" resultType="hashmap">
         <![CDATA[
         	SELECT
             	*

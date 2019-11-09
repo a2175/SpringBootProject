@@ -3,8 +3,8 @@ package com.myboot.springboot.board.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
  
@@ -19,16 +19,11 @@ public class BoardDAO {
     @Autowired
     private SqlSessionTemplate sqlSession;
  
-    public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
-        String strPageIndex = (String)map.get("page");
-
-        int nPageIndex = 0;
+    public List<Map<String, Object>> selectBoardList(int page_num) {
+        int nPageIndex = page_num - 1;
         int nPageRow = 15;
-         
-        if(StringUtils.isEmpty(strPageIndex) == false){
-            nPageIndex = Integer.parseInt(strPageIndex) - 1;
-        }
-
+        
+        Map<String, Object> map = new HashMap<>();
         map.put("START", (nPageIndex * nPageRow));
         map.put("END", nPageRow);
         
@@ -39,28 +34,24 @@ public class BoardDAO {
     	return sqlSession.selectOne("board.listNum");
     }
     
-    public List<Map<String, Object>> selectBoardSearchList(Map<String, Object> map) {
-        String strPageIndex = (String)map.get("page");
-
-        int nPageIndex = 0;
+    public List<Map<String, Object>> selectBoardSearchList(int page_num, String keyword) {
+    	int nPageIndex = page_num - 1;
         int nPageRow = 15;
          
-        if(StringUtils.isEmpty(strPageIndex) == false){
-            nPageIndex = Integer.parseInt(strPageIndex) - 1;
-        }
-
+        Map<String, Object> map = new HashMap<>();
         map.put("START", (nPageIndex * nPageRow));
         map.put("END", nPageRow);
+        map.put("keyword", keyword);
         
     	return sqlSession.selectList("board.searchList", map);
     }
     
-    public int selectBoardSearchListNum(Map<String, Object> map) {
-    	return sqlSession.selectOne("board.searchListNum", map);
+    public int selectBoardSearchListNum(String keyword) {
+    	return sqlSession.selectOne("board.searchListNum", keyword);
     }
     
-    public Map<String, Object> selectBoardDetail(Map<String, Object> map) {
-    	return sqlSession.selectOne("board.detail", map);
+    public Map<String, Object> selectBoardDetail(int idx) {
+    	return sqlSession.selectOne("board.detail", idx);
     }
     
     public void insertBoard(Map<String, Object> map) throws Exception{

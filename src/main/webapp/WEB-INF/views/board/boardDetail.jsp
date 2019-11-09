@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="btn_group">
-        <a class="btn-default" href="<c:url value='/board/openBoardList.do'/>">목록</a>
-        <a class="btn-submit" href="<c:url value='/board/openBoardUpdate.do?idx=${param.idx}'/>">수정</a>
-        <a class="btn-submit" href="<c:url value='/board/openBoardDelete.do?idx=${param.idx}'/>">삭제</a>
+        <a class="btn-default" href="<c:url value='/board/page/1'/>">목록</a>
+        <a class="btn-submit" href="<c:url value='/board/edit/${idx}'/>">수정</a>
+        <a class="btn-submit" href="<c:url value='/board/delete/${idx}'/>">삭제</a>
     </div>
 </div>
 
@@ -46,9 +46,9 @@
     
     function fn_selectCommentList() {
         var comAjax = new ComAjax();
-        comAjax.setUrl("<c:url value='/comment/selectCommentList.do'/>");
+        comAjax.setUrl("<c:url value='/comment/${idx}'/>");
         comAjax.setCallback("fn_selectCommentListCallback");
-        comAjax.addParam("idx", "${param.idx}");
+        comAjax.setMethod("GET");
         comAjax.ajax();
     }
     function fn_selectCommentListCallback(data) {
@@ -90,9 +90,8 @@
         
         if(fn_checkComment(name, pw, content)) {       
             var comAjax = new ComAjax();
-            comAjax.setUrl("<c:url value='/comment/insertComment.do'/>");
+            comAjax.setUrl("<c:url value='/comment/${idx}'/>");
             comAjax.setCallback('fn_selectCommentList');
-            comAjax.addParam("idx", "${param.idx}");
             comAjax.addParam("name", name);
             comAjax.addParam("pw", pw);
             comAjax.addParam("content", content);
@@ -131,9 +130,9 @@
         var idx = obj.parentElement.parentElement.querySelector("#idx").value;
         var pw = obj.parentElement.querySelector("#commentpw").value;
         var comAjax = new ComAjax();
-        comAjax.setUrl("<c:url value='/comment/deleteComment.do'/>");
+        comAjax.setUrl("<c:url value='/comment/'/>" + idx);
         comAjax.setCallback("fn_deleteCommentCallback");
-        comAjax.addParam("idx", idx);
+        comAjax.addParam("_method", "DELETE");
         comAjax.addParam("pw", pw);
         comAjax.ajax();
     }

@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="btn_group">
-            <a class="btn-default" href="<c:url value='/board/openBoardDetail.do?idx=${param.idx}'/>">취소</a>
+            <a class="btn-default" href="<c:url value='/board/post/${idx}'/>">취소</a>
             <button id="submit" class="btn-submit">완료</button>
         </div>
     </fieldset>
@@ -43,9 +43,9 @@
 		var content = document.getElementById("board_content").value;
 		
 		var comAjax = new ComAjax();
-		comAjax.setUrl("<c:url value='/board/updateBoard.do'/>");
+		comAjax.setUrl("<c:url value='/board/post/${idx}'/>");
 		comAjax.setCallback('fn_updateBoardCallback');
-		comAjax.addParam("idx", "${param.idx}");
+		comAjax.addParam("_method", "PUT");
 		comAjax.addParam("name", name);
 		comAjax.addParam("pw", pw);
 		comAjax.addParam("subject", subject);
@@ -56,7 +56,7 @@
     function fn_updateBoardCallback(isUpdated){
     	if(isUpdated == '1'){
     		alert("완료되었습니다.");
-        	window.location.href = "<c:url value='/board/openBoardDetail.do?idx=${param.idx}'/>";
+        	window.location.href = "<c:url value='/board/post/${idx}'/>";
     	}
     	else{
     		alert("비밀번호가 일치하지 않습니다.");

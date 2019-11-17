@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="btn_group">
-        <a class="btn-default" href="<c:url value='/board/page/1'/>">목록</a>
-        <a class="btn-submit" href="<c:url value='/board/edit/${idx}'/>">수정</a>
-        <a class="btn-submit" href="<c:url value='/board/delete/${idx}'/>">삭제</a>
+        <a class="btn-default" href="<c:url value='/board/pages/1'/>">목록</a>
+        <a class="btn-submit" href="<c:url value='/board/posts/${idx}/edit'/>">수정</a>
+        <a class="btn-submit" href="<c:url value='/board/posts/${idx}/delete'/>">삭제</a>
     </div>
 </div>
 

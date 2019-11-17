@@ -18,7 +18,7 @@
     </div>
     <nav id="gnb">
       <ul>
-        <li><a href="<c:url value='/board/page/1'/>">게시판</a></li>
+        <li><a href="<c:url value='/board/pages/1'/>">게시판</a></li>
         <li><a href="<c:url value='/chat'/>">채팅</a></li>
       </ul>
     </nav>

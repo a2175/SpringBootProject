@@ -23,7 +23,7 @@
 			<c:forEach var="row" items="${data.list}" varStatus="status">
 				<tr>
 					<td>${row.idx }</td>
-					<td class="al_l"><a href="<c:url value='/board/post/${row.idx }'/>">${row.subject } <c:if test="${row.commentNum > 0}">[${row.commentNum}]</c:if></a>
+					<td class="al_l"><a href="<c:url value='/board/posts/${row.idx }'/>">${row.subject } <c:if test="${row.commentNum > 0}">[${row.commentNum}]</c:if></a>
 					<td>${row.name }</td>
 					<td>${row.date }</td>
 				</tr>
@@ -33,7 +33,7 @@
 	<div class="btn_group">
 		 제목 검색: <input type="text" id="keyword" name="keyword" value="${param.keyword}">
       	<a href="#this" class="btn-submit" id="search">검색</a>
-		<a class="btn-default" href="<c:url value='/board/write'/>">작성</a>
+		<a class="btn-default" href="<c:url value='/board/posts/write'/>">작성</a>
 	</div>
 	<div id="PAGE_NAVI" style="margin: auto; display: table;"></div>
 </div>
@@ -41,9 +41,9 @@
 <script type="text/javascript">
 	var params = {
 	   divId : "PAGE_NAVI",
-	   pageIndex : "${page_num}",
+	   pageIndex : "${pageNum}",
 	   totalCount : "${data.listNum}",
-	   eventName : "<c:url value='/board/page/'/>",
+	   eventName : "<c:url value='/board/pages/'/>",
 	   keyword : "${keyword}"
 	};
 	gfn_renderPaging(params);
@@ -62,7 +62,7 @@
 	
 	function fn_openBoardSearchList() {
 	   keyword = document.getElementById("keyword").value;
-	   location.href = "<c:url value='/board/page/1/'/>" + keyword;
+	   location.href = "<c:url value='/board/pages/1/'/>" + keyword;
 	}
 </script>
 

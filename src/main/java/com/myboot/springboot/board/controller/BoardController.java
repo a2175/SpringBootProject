@@ -18,28 +18,28 @@ public class BoardController {
 	@Resource(name="boardService")
     private BoardService boardService;
 	
-	@RequestMapping(value="/page/{page_num}", method=RequestMethod.GET)
-	public ModelAndView openBoardList(@PathVariable("page_num") int page_num) throws Exception {
+	@RequestMapping(value="/pages/{pageNum}", method=RequestMethod.GET)
+	public ModelAndView openBoardList(@PathVariable("pageNum") int pageNum) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
 		
-		mv.addObject("data", boardService.selectBoardList(page_num));
-		mv.addObject("page_num", page_num);
+		mv.addObject("data", boardService.selectBoardList(pageNum));
+		mv.addObject("pageNum", pageNum);
 
         return mv;
 	}
 	
-	@RequestMapping(value="/page/{page_num}/{keyword}", method=RequestMethod.GET)
-	public ModelAndView openBoardSearchList(@PathVariable("page_num") int page_num, @PathVariable("keyword") String keyword) throws Exception {
+	@RequestMapping(value="/pages/{pageNum}/{keyword}", method=RequestMethod.GET)
+	public ModelAndView openBoardSearchList(@PathVariable("pageNum") int pageNum, @PathVariable("keyword") String keyword) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
 		
-		mv.addObject("data", boardService.selectBoardSearchList(page_num, keyword));
-		mv.addObject("page_num", page_num);
+		mv.addObject("data", boardService.selectBoardSearchList(pageNum, keyword));
+		mv.addObject("pageNum", pageNum);
 		mv.addObject("keyword", keyword);
 
         return mv;
 	}
 	
-	@RequestMapping(value="/post/{idx}", method=RequestMethod.GET)
+	@RequestMapping(value="/posts/{idx}", method=RequestMethod.GET)
 	public ModelAndView openBoardDetail(@PathVariable("idx") int idx) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
 
@@ -49,35 +49,35 @@ public class BoardController {
         return mv;
 	}
 	
-	@RequestMapping(value="/post", method=RequestMethod.POST)
+	@RequestMapping(value="/posts", method=RequestMethod.POST)
     public ModelAndView insertBoard(CommandMap commandMap) throws Exception{
-        ModelAndView mv = new ModelAndView("redirect:/board/page/1");
+        ModelAndView mv = new ModelAndView("redirect:/board/pages/1");
 
         boardService.insertBoard(commandMap.getMap());
         
         return mv;
     }
 	
-    @RequestMapping(value="/post/{idx}", method=RequestMethod.PUT)
+    @RequestMapping(value="/posts/{idx}", method=RequestMethod.PUT)
     public int updateBoard(CommandMap commandMap, @PathVariable("idx") int idx) throws Exception{
     	commandMap.put("idx", idx);
         return boardService.updateBoard(commandMap.getMap());
     }
 	
-    @RequestMapping(value="/post/{idx}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/posts/{idx}", method=RequestMethod.DELETE)
     public int deleteBoard(CommandMap commandMap, @PathVariable("idx") int idx) throws Exception{
     	commandMap.put("idx", idx);
         return boardService.deleteBoard(commandMap.getMap());
     }
     
-	@RequestMapping(value="/write", method=RequestMethod.GET)
+	@RequestMapping(value="/posts/write", method=RequestMethod.GET)
 	public ModelAndView openBoardWrite(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardWrite");
         
         return mv;
 	}
 	
-	@RequestMapping(value="/edit/{idx}", method=RequestMethod.GET)
+	@RequestMapping(value="/posts/{idx}/edit", method=RequestMethod.GET)
     public ModelAndView openBoardUpdate(@PathVariable("idx") int idx) throws Exception{
         ModelAndView mv = new ModelAndView("board/boardUpdate");
         
@@ -87,7 +87,7 @@ public class BoardController {
         return mv;
     }
     
-	@RequestMapping(value="/delete/{idx}", method=RequestMethod.GET)
+	@RequestMapping(value="/posts/{idx}/delete", method=RequestMethod.GET)
     public ModelAndView openBoardDelete(@PathVariable("idx") int idx) throws Exception{
         ModelAndView mv = new ModelAndView("board/boardDelete");
         

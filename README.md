@@ -3,7 +3,12 @@ SpringBoot + Mysql + MyBatis
 SpringBoot를 사용해서 만든 간단한 RESTful CRUD 게시판과
 WebSocket을 사용한 실시간 채팅 프로젝트입니다.
 
-#version = 1.82v
+#version = 1.90v
+
+[SpringBootProject 1.90v]
+1. 파일 첨부 구축
+2. 시간 표기 수정
+3. 검색 키워드 표시되도록 수정
 
 [SpringBootProject 1.82v]
 1. WebSocket 코드 수정

@@ -1,6 +1,9 @@
 package com.myboot.springboot.board.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,25 +46,32 @@ public class BoardController {
 	public ModelAndView openBoardDetail(@PathVariable("idx") int idx) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
 
-		mv.addObject("data", boardService.selectBoardDetail(idx));
-		mv.addObject("idx", idx);
+		Map<String,Object> map = boardService.selectBoardDetail(idx);
 		
+		mv.addObject("data", map.get("data"));
+		mv.addObject("list", map.get("list"));
+		mv.addObject("idx", idx);
+
         return mv;
 	}
 	
 	@RequestMapping(value="/posts", method=RequestMethod.POST)
-    public ModelAndView insertBoard(CommandMap commandMap) throws Exception{
+    public ModelAndView insertBoard(CommandMap commandMap, HttpServletRequest request) throws Exception{
         ModelAndView mv = new ModelAndView("redirect:/board/pages/1");
 
-        boardService.insertBoard(commandMap.getMap());
+        boardService.insertBoard(commandMap.getMap(), request);
         
         return mv;
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.PUT)
-    public int updateBoard(CommandMap commandMap, @PathVariable("idx") int idx) throws Exception{
+    public ModelAndView updateBoard(CommandMap commandMap, HttpServletRequest request, @PathVariable("idx") int idx) throws Exception{
+    	ModelAndView mv = new ModelAndView("redirect:/board/posts/"+Integer.toString(idx)+"/edit");
+    	
     	commandMap.put("idx", idx);
-        return boardService.updateBoard(commandMap.getMap());
+    	mv.addObject("isUpdated", boardService.updateBoard(commandMap.getMap(), request));
+    	
+    	return mv;
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.DELETE)
@@ -81,7 +91,10 @@ public class BoardController {
     public ModelAndView openBoardUpdate(@PathVariable("idx") int idx) throws Exception{
         ModelAndView mv = new ModelAndView("board/boardUpdate");
         
-        mv.addObject("data", boardService.selectBoardDetail(idx));
+        Map<String,Object> map = boardService.selectBoardDetail(idx);
+		
+		mv.addObject("data", map.get("data"));
+		mv.addObject("list", map.get("list"));
 		mv.addObject("idx", idx);
         
         return mv;

@@ -23,17 +23,17 @@
 			<c:forEach var="row" items="${data.list}" varStatus="status">
 				<tr>
 					<td>${row.idx }</td>
-					<td class="al_l"><a href="<c:url value='/board/posts/${row.idx }'/>">${row.subject } <c:if test="${row.commentNum > 0}">[${row.commentNum}]</c:if></a>
+					<td class="al_l"><a href="${pageContext.request.contextPath}/board/posts/${row.idx }">${row.subject } <c:if test="${row.commentNum > 0}">[${row.commentNum}]</c:if></a>
 					<td>${row.name }</td>
-					<td>${row.date }</td>
+					<td><fmt:formatDate value="${row.date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<div class="btn_group">
-		 제목 검색: <input type="text" id="keyword" name="keyword" value="${param.keyword}">
+		 제목 검색: <input type="text" id="keyword" name="keyword" value="${keyword}">
       	<a href="#this" class="btn-submit" id="search">검색</a>
-		<a class="btn-default" href="<c:url value='/board/posts/write'/>">작성</a>
+		<a class="btn-default" href="${pageContext.request.contextPath}/board/posts/write">작성</a>
 	</div>
 	<div id="PAGE_NAVI" style="margin: auto; display: table;"></div>
 </div>
@@ -43,7 +43,7 @@
 	   divId : "PAGE_NAVI",
 	   pageIndex : "${pageNum}",
 	   totalCount : "${data.listNum}",
-	   eventName : "<c:url value='/board/pages/'/>",
+	   eventName : "${pageContext.request.contextPath}/board/pages/",
 	   keyword : "${keyword}"
 	};
 	gfn_renderPaging(params);
@@ -62,7 +62,7 @@
 	
 	function fn_openBoardSearchList() {
 	   keyword = document.getElementById("keyword").value;
-	   location.href = "<c:url value='/board/pages/1/'/>" + keyword;
+	   location.href = "${pageContext.request.contextPath}/board/pages/1/" + keyword;
 	}
 </script>
 

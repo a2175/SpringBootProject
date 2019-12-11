@@ -59,7 +59,7 @@
     	]]>
     </select>
     
-    <insert id="insert" parameterType="hashmap">
+    <insert id="insert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="idx">
 		<![CDATA[
         	INSERT INTO 
         		board
@@ -91,6 +91,41 @@
         	WHERE 
         		idx = #{idx}
         		AND pw = #{pw}
+    	]]>
+	</delete>
+    
+    <insert id="insertFile" parameterType="hashmap">
+		<![CDATA[
+        	INSERT INTO 
+        		file
+        	SET
+            	board_idx = #{board_idx},
+            	original_file_name = #{original_file_name},
+            	stored_file_name = #{stored_file_name},
+            	file_size = #{file_size},
+            	date = now()
+    	]]>
+	</insert>
+	
+	<select id="selectFileList" parameterType="Integer" resultType="hashmap">
+        <![CDATA[
+        	SELECT
+            	idx,
+            	original_file_name,
+            	stored_file_name,
+            	file_size
+        	FROM
+            	file
+        	WHERE
+            	board_idx = #{idx}
+    	]]>
+    </select>
+    
+    <delete id="deleteFile" parameterType="hashmap">
+    	<![CDATA[
+        	DELETE FROM file
+        	WHERE
+        		idx = #{idx}
     	]]>
 	</delete>
     

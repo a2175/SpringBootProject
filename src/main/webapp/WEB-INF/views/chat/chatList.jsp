@@ -2,8 +2,8 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-<script src="<c:url value='/webjars/sockjs-client/sockjs.min.js'/>"></script>
-<script src="<c:url value='/webjars/stomp-websocket/stomp.min.js'/>"></script>
+<script src="${pageContext.request.contextPath}/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/stomp-websocket/stomp.min.js"></script>
 
 <div class="auto-center">
     <div id="chat_list" class="chat_list"></div>
@@ -18,7 +18,7 @@
 </div>
 
 <script type="text/javascript">
-   	var socket = new SockJS("http://" + location.hostname + ":8080" + "<c:url value='/chatWebSocket'/>"); 
+   	var socket = new SockJS("http://" + location.hostname + ":8080" + "${pageContext.request.contextPath}/chatWebSocket"); 
     var stompClient = Stomp.over(socket);
     
     stompClient.connect({}, function (frame) {

@@ -66,4 +66,16 @@ public class BoardDAO {
 		return sqlSession.delete("board.delete", map);
 	}
 
+	public void insertFile(Map<String, Object> map) throws Exception{
+        sqlSession.insert("board.insertFile", map);
+    }
+	
+	public List<Map<String, Object>> selectFileList(int idx) throws Exception{
+		return sqlSession.selectList("board.selectFileList", idx);
+    }
+
+	public void deleteFile(Map<String, Object> map) {
+		sqlSession.delete("board.deleteFile", map);
+	}
+	
 }

@@ -17,6 +17,15 @@
             <div class="lbl">내용</div>
             <div class="desc content">${data.content }</div>
         </div>
+        <div class="tr">
+	        <div class="lbl">파일첨부</div>
+	        <c:forEach var="row" items="${list }" varStatus="status">
+	        	<div class="desc">
+					<a href="${pageContext.request.contextPath}/common/files/${row.idx }">${row.original_file_name }</a> (${row.file_size }kb)
+				</div>
+				<div class="lbl"></div>
+			</c:forEach>
+        </div>
     </div>
 	<div id="comment_list"></div>
     <div class="submit_comment">
@@ -30,9 +39,9 @@
         </div>
     </div>
     <div class="btn_group">
-        <a class="btn-default" href="<c:url value='/board/pages/1'/>">목록</a>
-        <a class="btn-submit" href="<c:url value='/board/posts/${idx}/edit'/>">수정</a>
-        <a class="btn-submit" href="<c:url value='/board/posts/${idx}/delete'/>">삭제</a>
+        <a class="btn-default" href="${pageContext.request.contextPath}/board/pages/1">목록</a>
+        <a class="btn-submit" href="${pageContext.request.contextPath}/board/posts/${idx}/edit">수정</a>
+        <a class="btn-submit" href="${pageContext.request.contextPath}/board/posts/${idx}/delete">삭제</a>
     </div>
 </div>
 
@@ -46,7 +55,7 @@
     
     function fn_selectCommentList() {
         var comAjax = new ComAjax();
-        comAjax.setUrl("<c:url value='/comment/${idx}'/>");
+        comAjax.setUrl("${pageContext.request.contextPath}/comment/${idx}");
         comAjax.setCallback("fn_selectCommentListCallback");
         comAjax.setMethod("GET");
         comAjax.ajax();
@@ -61,7 +70,7 @@
                         "<div class='lbl'>" + data.list[key].name + "</div>" +
                         "<div class='desc'>" + data.list[key].content + "</div>" +
                         "<div class='date'>" + data.list[key].date.replace('T', ' ').substr(0, 19) + "</div>" +
-                        "<div class='delete'>" + "<a href='#' id='opendel'><img src='<c:url value='/resources/img/delete.jpg'/>'></a>" + "</div>" +
+                        "<div class='delete'>" + "<a href='#' id='opendel'><img src='${pageContext.request.contextPath}/resources/img/delete.jpg'></a>" + "</div>" +
                         "<input type='hidden' id='idx' value=" + data.list[key].idx + ">" +
                     "</div>";
         };
@@ -90,7 +99,7 @@
         
         if(fn_checkComment(name, pw, content)) {       
             var comAjax = new ComAjax();
-            comAjax.setUrl("<c:url value='/comment/${idx}'/>");
+            comAjax.setUrl("${pageContext.request.contextPath}/comment/${idx}");
             comAjax.setCallback('fn_selectCommentList');
             comAjax.addParam("name", name);
             comAjax.addParam("pw", pw);
@@ -130,7 +139,7 @@
         var idx = obj.parentElement.parentElement.querySelector("#idx").value;
         var pw = obj.parentElement.querySelector("#commentpw").value;
         var comAjax = new ComAjax();
-        comAjax.setUrl("<c:url value='/comment/'/>" + idx);
+        comAjax.setUrl("${pageContext.request.contextPath}/comment/" + idx);
         comAjax.setCallback("fn_deleteCommentCallback");
         comAjax.addParam("_method", "DELETE");
         comAjax.addParam("pw", pw);

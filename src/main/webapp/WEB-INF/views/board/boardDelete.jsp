@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="btn_group">
-            <a class="btn-default" href="<c:url value='/board/posts/${idx}'/>">취소</a>
+            <a class="btn-default" href="${pageContext.request.contextPath}/board/posts/${idx}">취소</a>
             <button id="submit" class="btn-submit">완료</button>
         </div>
     </fieldset>
@@ -28,7 +28,7 @@
 		var pw = document.getElementById("board_pw").value;
 		
 		var comAjax = new ComAjax();
-		comAjax.setUrl("<c:url value='/board/posts/${idx}'/>");
+		comAjax.setUrl("${pageContext.request.contextPath}/board/posts/${idx}");
 		comAjax.setCallback('fn_deleteBoardCallback');
 		comAjax.addParam("_method", "DELETE");
 		comAjax.addParam("pw", pw);
@@ -38,7 +38,7 @@
     function fn_deleteBoardCallback(isDeleted){
     	if(isDeleted == '1'){
     		alert("완료되었습니다.");
-        	window.location.href = "<c:url value='/board/pages/1'/>";
+        	window.location.href = "${pageContext.request.contextPath}/board/pages/1";
     	}
     	else{
     		alert("비밀번호가 일치하지 않습니다.");

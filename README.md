@@ -3,7 +3,11 @@ SpringBoot + Mysql + MyBatis
 SpringBoot를 사용해서 만든 간단한 RESTful CRUD 게시판과
 WebSocket을 사용한 실시간 채팅 프로젝트입니다.
 
-#version = 1.90v
+#version = 1.91v
+
+[SpringBootProject 1.91v]
+1. 게시글 수정에서 파일 삭제 시 제대로 업로드가 안 되는 문제 수정
+2. 게시글 수정, 삭제 js 수정
 
 [SpringBootProject 1.90v]
 1. 파일 첨부 구축

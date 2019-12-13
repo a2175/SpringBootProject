@@ -2,19 +2,8 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-<script type="text/javascript">
-	if("${param.isUpdated}" == "0") {
-		alert("비밀번호가 일치하지 않습니다.");
-		document.location.replace("${pageContext.request.contextPath}/board/posts/${idx}/edit");
-	}
-	else if("${param.isUpdated}" == "1") {
-		alert("완료되었습니다.");
-		document.location.replace("${pageContext.request.contextPath}/board/posts/${idx}");
-	}
-</script>
-
 <div class="board_write auto-center">
-	<form action="${pageContext.request.contextPath}/board/posts/${idx}" method="post" enctype="multipart/form-data">
+	<form id="form" action="${pageContext.request.contextPath}/board/posts/${idx}" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_method" value="PUT">
     <fieldset><legend>글수정</legend>
         <h3>글수정</h3>
@@ -41,7 +30,7 @@
                 	<input type="hidden" name="idx_${var.index }" value="${row.idx }">
                 	<input type="hidden" name="name_${var.index }" value="${row.stored_file_name }">
 	               	<div class="desc">
-	               		<input type="file" id="file_${var.index }" name="file_${var.index }">
+	               		<input type="file" name="file_${var.index }">
 	                	<a href="#this">${row.original_file_name }</a> (${row.file_size }kb)
 		                <a href="#this" id="deleteFile">[삭제]</a>
 	                </div>
@@ -59,19 +48,42 @@
         </div>
         <div class="btn_group">
             <a class="btn-default" href="${pageContext.request.contextPath}/board/posts/${idx}">취소</a>
-            <button id="submit" class="btn-submit">완료</button>
+            <button class="btn-submit" type="submit">완료</button>
         </div>
     </fieldset>
     </form>
 </div>
 
 <script type="text/javascript">
+    var file_count = document.querySelectorAll('input[type=file]').length;
 	var deleteFileBtn = document.querySelectorAll('#deleteFile');
 	for(i=0; i<deleteFileBtn.length; i++) {
 		deleteFileBtn[i].addEventListener('click', function(e){
             e.preventDefault();
-            this.parentElement.innerHTML = "<input type='file'>"
+            this.parentElement.innerHTML = "<input type='file' name='file_" + (file_count++) +"'>"
         });
+    }
+
+    document.getElementById("form").addEventListener('submit', function(e){
+        e.preventDefault();
+        fn_updateBoard(this);
+	});
+	
+    function fn_updateBoard(form){	
+		var comAjax = new ComAjax(form);
+		comAjax.setUrl(form.action);
+		comAjax.setCallback('fn_updateBoardCallback');
+		comAjax.ajax();
+    }
+    
+    function fn_updateBoardCallback(isUpdated){
+    	if(isUpdated == '1'){
+    		alert("완료되었습니다.");
+        	window.location.href = "${pageContext.request.contextPath}/board/posts/${idx}";
+    	}
+    	else{
+    		alert("비밀번호가 일치하지 않습니다.");
+    	}
     }
 </script>
 

@@ -65,13 +65,9 @@ public class BoardController {
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.PUT)
-    public ModelAndView updateBoard(CommandMap commandMap, HttpServletRequest request, @PathVariable("idx") int idx) throws Exception{
-    	ModelAndView mv = new ModelAndView("redirect:/board/posts/"+Integer.toString(idx)+"/edit");
-    	
+    public int updateBoard(CommandMap commandMap, HttpServletRequest request, @PathVariable("idx") int idx) throws Exception{
     	commandMap.put("idx", idx);
-    	mv.addObject("isUpdated", boardService.updateBoard(commandMap.getMap(), request));
-    	
-    	return mv;
+    	return boardService.updateBoard(commandMap.getMap(), request);
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.DELETE)

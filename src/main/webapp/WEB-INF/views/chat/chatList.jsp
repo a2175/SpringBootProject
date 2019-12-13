@@ -6,15 +6,16 @@
 <script src="${pageContext.request.contextPath}/webjars/stomp-websocket/stomp.min.js"></script>
 
 <div class="auto-center">
-    <div id="chat_list" class="chat_list"></div>
-
-    <div class="submit_chat">
-        <span class="input"><input type="text" id='name' placeholder="닉네임" autofocus></span>
-        <span class="desc"><textarea id="content" rows="5" placeholder="내용"></textarea></span>
-        <div class="btn_group">
-            <a class="btn-submit" id="submit" href="">등록</a>
-        </div>
-    </div>
+	<div id="chat_list" class="chat_list"></div>
+	<form id="form" action="" method="post">
+		<div class="submit_chat">
+			<span class="input"><input type="text" id='name' name="name" placeholder="닉네임" required autofocus></span>
+			<span class="desc"><textarea id="content" name="content" rows="5" placeholder="내용" required></textarea></span>
+			<div class="btn_group">
+				<button id="submit" class="btn-submit" type="submit">등록</button>
+			</div>
+		</div>
+	</form>
 </div>
 
 <script type="text/javascript">
@@ -35,14 +36,14 @@
     
     document.getElementById("content").addEventListener('keydown', function(e){
 		if (e.keyCode == 13) {
-		  e.preventDefault();
-		  fn_insertChat();
+			e.preventDefault();
+			document.getElementById("submit").click()
 		}
 	});
 	
-	document.getElementById("submit").addEventListener('click', function(e){
-		e.preventDefault();
-		fn_insertChat();
+	document.getElementById("form").addEventListener('submit', function(e){
+        e.preventDefault();
+        fn_insertChat(this);
 	});
 
     function fn_updateChatList(data) {
@@ -70,22 +71,14 @@
 		return true;
 	}
 	
-	function fn_insertChat() {
-		var name = document.getElementById("name").value;
-		var content = document.getElementById("content").value;
+	function fn_insertChat(form) {	
+		var formData = new FormData(form);
+		formData.append('date', now());
 		
-		if(fn_checkComment(name, content)) {
-			var data = {
-				name : name,
-				content : content,
-				date : now()
-			};
-			
-			stompClient.send("/insert", {}, JSON.stringify(data));
-			
-			document.getElementById("content").value = '';
-			document.getElementById("content").focus();
-		}
+		stompClient.send("/insert", {}, JSON.stringify(Object.fromEntries(formData)));
+		
+		document.getElementById("content").value = '';
+		document.getElementById("content").focus();
 	}
 	
 	function fn_selectChatList(data) {

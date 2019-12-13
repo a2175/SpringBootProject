@@ -3,6 +3,8 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 <div class="board_write auto-center">
+	<form id="form" action="${pageContext.request.contextPath}/board/posts/${idx}" method="post">
+	<input type="hidden" name="_method" value="DELETE">
     <fieldset><legend>글삭제</legend>
         <h3>글삭제</h3>
         <div class="table">
@@ -13,25 +15,22 @@
         </div>
         <div class="btn_group">
             <a class="btn-default" href="${pageContext.request.contextPath}/board/posts/${idx}">취소</a>
-            <button id="submit" class="btn-submit">완료</button>
+            <button class="btn-submit" type="submit">완료</button>
         </div>
     </fieldset>
+    </form>
 </div>
 
 <script type="text/javascript">
-	document.getElementById("submit").addEventListener('click', function(e){
-	    e.preventDefault();
-	    fn_deleteBoard();
+	document.getElementById("form").addEventListener('submit', function(e){
+        e.preventDefault();
+        fn_deleteBoard(this);
 	});
 	
-    function fn_deleteBoard(){
-		var pw = document.getElementById("board_pw").value;
-		
-		var comAjax = new ComAjax();
-		comAjax.setUrl("${pageContext.request.contextPath}/board/posts/${idx}");
+    function fn_deleteBoard(form){	
+		var comAjax = new ComAjax(form);
+		comAjax.setUrl(form.action);
 		comAjax.setCallback('fn_deleteBoardCallback');
-		comAjax.addParam("_method", "DELETE");
-		comAjax.addParam("pw", pw);
 		comAjax.ajax();
     }
     

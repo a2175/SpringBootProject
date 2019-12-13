@@ -18,7 +18,7 @@
             <div class="desc content">${data.content }</div>
         </div>
         <div class="tr">
-	        <div class="lbl">파일첨부</div>
+	        <div class="lbl">첨부파일</div>
 	        <c:forEach var="row" items="${list }" varStatus="status">
 	        	<div class="desc">
 					<a href="${pageContext.request.contextPath}/common/files/${row.idx }">${row.original_file_name }</a> (${row.file_size }kb)
@@ -27,17 +27,19 @@
 			</c:forEach>
         </div>
     </div>
-	<div id="comment_list"></div>
-    <div class="submit_comment">
-        <div class="input">
-            <div class="tr"><input type="text" id='name' placeholder="닉네임"></div>
-            <div class="tr"><input type="password" id='pw' placeholder="비밀번호"></div>
+    <div id="comment_list"></div>
+    <form id="comment_form" action="${pageContext.request.contextPath}/comment/${idx}" method="post">
+        <div class="submit_comment">
+            <div class="input">
+                <div class="tr"><input type="text" id='name' name='name' placeholder="닉네임" required></div>
+                <div class="tr"><input type="password" id='pw' name='pw' placeholder="비밀번호" required></div>
+            </div>
+            <div class="desc"><textarea id='content' name="content" rows="5" placeholder="내용" required></textarea></div>
+            <div class="btn_group">
+                <button class="btn-submit" type="submit">등록</button>
+            </div>
         </div>
-        <div class="desc"><textarea id="content" rows="5" placeholder="내용"></textarea></div>
-        <div class="btn_group">
-            <a class="btn-submit" id="submit" href="">등록</a>
-        </div>
-    </div>
+    </form>
     <div class="btn_group">
         <a class="btn-default" href="${pageContext.request.contextPath}/board/pages/1">목록</a>
         <a class="btn-submit" href="${pageContext.request.contextPath}/board/posts/${idx}/edit">수정</a>
@@ -47,11 +49,11 @@
 
 <script type="text/javascript">
     fn_selectCommentList();
-    
-    document.getElementById("submit").addEventListener('click', function(e){
+
+    document.getElementById("comment_form").addEventListener('submit', function(e){
         e.preventDefault();
-        fn_insertComment();
-    });
+        fn_insertComment(this);
+	});
     
     function fn_selectCommentList() {
         var comAjax = new ComAjax();
@@ -84,32 +86,15 @@
         }
     }
     
-    function fn_checkComment(name, pw, content) {
-        if(name.length == 0) { alert("닉네임을 입력해주세요."); return false; }
-        if(pw.length == 0) { alert("비밀번호를 입력해주세요."); return false; }
-        if(content.length == 0) { alert("내용을 입력해주세요."); return false; }
-
-        return true;
-	}
-    
-    function fn_insertComment() {
-        var name = document.getElementById("name").value;
-        var pw = document.getElementById("pw").value;
-        var content = document.getElementById("content").value;
+    function fn_insertComment(form) {
+        var comAjax = new ComAjax(form);
+        comAjax.setUrl(form.action);
+        comAjax.setCallback('fn_selectCommentList');
+        comAjax.ajax();
         
-        if(fn_checkComment(name, pw, content)) {       
-            var comAjax = new ComAjax();
-            comAjax.setUrl("${pageContext.request.contextPath}/comment/${idx}");
-            comAjax.setCallback('fn_selectCommentList');
-            comAjax.addParam("name", name);
-            comAjax.addParam("pw", pw);
-            comAjax.addParam("content", content);
-            comAjax.ajax();
-            
-            document.getElementById("name").value = '';
-            document.getElementById("pw").value = '';
-            document.getElementById("content").value = '';
-        }
+        document.getElementById("name").value = '';
+        document.getElementById("pw").value = '';
+        document.getElementById("content").value = '';
     }
     
     function fn_openDeleteComment(obj) {
@@ -118,31 +103,31 @@
         
         var div = document.createElement("div");
         div.className = "btn_group";
-        var str = "<input type='password' id='commentpw' placeholder='비밀번호'>" +
-                  "<a id='commentdelete' class='btn-submit' href=''>확인</a>" +
-                  "<a id='commentcencel' class='btn-submit' href=''>취소</a>";
+        var str = "<form id='comment_delete_form' action='' method='post'>" +
+                    "<input type='hidden' name='_method' value='DELETE'>" +
+                    "<input type='password' id='commentpw' name='pw' placeholder='비밀번호' required>" +
+                    "<button id='commentdelete' class='btn-submit' type='submit'>확인</button>" +                
+                    "<button id='commentcencel' class='btn-submit'>취소</button>" +
+                  "</form>";
         div.innerHTML = str;
         
         obj.parentElement.appendChild(div);
-        document.querySelector("a[id='commentdelete']").addEventListener('click', function(e){
+        document.getElementById("comment_delete_form").addEventListener('submit', function(e){
             e.preventDefault();
             fn_deleteComment(this);
         }); 
         
-        document.querySelector("a[id='commentcencel']").addEventListener('click', function(e){
+        document.getElementById("commentcencel").addEventListener('click', function(e){
             e.preventDefault();
             fn_deleteCencel(this);
         });
     }
     
-    function fn_deleteComment(obj) {
-        var idx = obj.parentElement.parentElement.querySelector("#idx").value;
-        var pw = obj.parentElement.querySelector("#commentpw").value;
-        var comAjax = new ComAjax();
+    function fn_deleteComment(form) {
+        var idx = form.parentElement.parentElement.querySelector("#idx").value;
+        var comAjax = new ComAjax(form);
         comAjax.setUrl("${pageContext.request.contextPath}/comment/" + idx);
         comAjax.setCallback("fn_deleteCommentCallback");
-        comAjax.addParam("_method", "DELETE");
-        comAjax.addParam("pw", pw);
         comAjax.ajax();
     }
     

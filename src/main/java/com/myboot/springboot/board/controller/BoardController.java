@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,35 +21,35 @@ public class BoardController {
     private BoardService boardService;
 	
 	@RequestMapping(value="/pages/{pageNum}", method=RequestMethod.GET)
-	public ModelAndView openBoardList(@PathVariable("pageNum") int pageNum) throws Exception {
+	public ModelAndView openBoardList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
 		
-		mv.addObject("data", boardService.selectBoardList(pageNum));
-		mv.addObject("pageNum", pageNum);
+		mv.addObject("data", boardService.selectBoardList(commandMap.getMap()));
+		mv.addObject("pageNum", commandMap.get("pageNum"));
 
         return mv;
 	}
 	
 	@RequestMapping(value="/pages/{pageNum}/{keyword}", method=RequestMethod.GET)
-	public ModelAndView openBoardSearchList(@PathVariable("pageNum") int pageNum, @PathVariable("keyword") String keyword) throws Exception {
+	public ModelAndView openBoardSearchList(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardList");
 		
-		mv.addObject("data", boardService.selectBoardSearchList(pageNum, keyword));
-		mv.addObject("pageNum", pageNum);
-		mv.addObject("keyword", keyword);
+		mv.addObject("data", boardService.selectBoardSearchList(commandMap.getMap()));
+		mv.addObject("pageNum", commandMap.get("pageNum"));
+		mv.addObject("keyword", commandMap.get("keyword"));
 
         return mv;
 	}
 	
 	@RequestMapping(value="/posts/{idx}", method=RequestMethod.GET)
-	public ModelAndView openBoardDetail(@PathVariable("idx") int idx) throws Exception {
+	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
 
-		Map<String,Object> map = boardService.selectBoardDetail(idx);
+		Map<String,Object> map = boardService.selectBoardDetail(commandMap.getMap());
 		
 		mv.addObject("data", map.get("data"));
 		mv.addObject("list", map.get("list"));
-		mv.addObject("idx", idx);
+		mv.addObject("idx", commandMap.get("idx"));
 
         return mv;
 	}
@@ -65,14 +64,12 @@ public class BoardController {
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.PUT)
-    public int updateBoard(CommandMap commandMap, HttpServletRequest request, @PathVariable("idx") int idx) throws Exception{
-    	commandMap.put("idx", idx);
+    public int updateBoard(CommandMap commandMap, HttpServletRequest request) throws Exception{
     	return boardService.updateBoard(commandMap.getMap(), request);
     }
 	
     @RequestMapping(value="/posts/{idx}", method=RequestMethod.DELETE)
-    public int deleteBoard(CommandMap commandMap, @PathVariable("idx") int idx) throws Exception{
-    	commandMap.put("idx", idx);
+    public int deleteBoard(CommandMap commandMap) throws Exception{
         return boardService.deleteBoard(commandMap.getMap());
     }
     
@@ -84,23 +81,23 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/posts/{idx}/edit", method=RequestMethod.GET)
-    public ModelAndView openBoardUpdate(@PathVariable("idx") int idx) throws Exception{
+    public ModelAndView openBoardUpdate(CommandMap commandMap) throws Exception{
         ModelAndView mv = new ModelAndView("board/boardUpdate");
         
-        Map<String,Object> map = boardService.selectBoardDetail(idx);
+        Map<String,Object> map = boardService.selectBoardDetail(commandMap.getMap());
 		
 		mv.addObject("data", map.get("data"));
 		mv.addObject("list", map.get("list"));
-		mv.addObject("idx", idx);
+		mv.addObject("idx", commandMap.get("idx"));
         
         return mv;
     }
     
 	@RequestMapping(value="/posts/{idx}/delete", method=RequestMethod.GET)
-    public ModelAndView openBoardDelete(@PathVariable("idx") int idx) throws Exception{
+    public ModelAndView openBoardDelete(CommandMap commandMap) throws Exception{
         ModelAndView mv = new ModelAndView("board/boardDelete");
         
-        mv.addObject("idx", idx);
+        mv.addObject("idx", commandMap.get("idx"));
         
         return mv;
     }

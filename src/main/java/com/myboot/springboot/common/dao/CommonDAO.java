@@ -12,8 +12,8 @@ public class CommonDAO {
 	@Autowired
     private SqlSessionTemplate sqlSession;
 	
-	public Map<String, Object> selectFileInfo(int idx) throws Exception{
-	    return sqlSession.selectOne("common.selectFileInfo", idx);
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception{
+	    return sqlSession.selectOne("common.selectFileInfo", map);
 	}
 
 }

@@ -67,7 +67,7 @@ function ComAjax(form){
     this.ajax = function ajax(){
         fetch(formUrl, {
             method: formMethod,
-            body: formMethod == "POST" ? formData : null,
+            body: formMethod == "POST" ? formData : null
         }).then(data => data.text())
           .then(eval(fv_ajaxCallback));
     };

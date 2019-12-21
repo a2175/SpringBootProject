@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface CommonService {
 
-	Map<String, Object> selectFileInfo(int idx) throws Exception;
+	Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	
 }

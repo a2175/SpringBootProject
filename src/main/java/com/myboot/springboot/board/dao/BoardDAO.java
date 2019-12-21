@@ -4,7 +4,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
  
@@ -19,11 +18,10 @@ public class BoardDAO {
     @Autowired
     private SqlSessionTemplate sqlSession;
  
-    public List<Map<String, Object>> selectBoardList(int page_num) {
-        int nPageIndex = page_num - 1;
+    public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
+        int nPageIndex = Integer.parseInt((String)map.get("pageNum")) - 1;
         int nPageRow = 15;
         
-        Map<String, Object> map = new HashMap<>();
         map.put("START", (nPageIndex * nPageRow));
         map.put("END", nPageRow);
         
@@ -34,24 +32,22 @@ public class BoardDAO {
     	return sqlSession.selectOne("board.listNum");
     }
     
-    public List<Map<String, Object>> selectBoardSearchList(int page_num, String keyword) {
-    	int nPageIndex = page_num - 1;
+    public List<Map<String, Object>> selectBoardSearchList(Map<String, Object> map) {
+    	int nPageIndex = Integer.parseInt((String)map.get("pageNum")) - 1;
         int nPageRow = 15;
          
-        Map<String, Object> map = new HashMap<>();
         map.put("START", (nPageIndex * nPageRow));
         map.put("END", nPageRow);
-        map.put("keyword", keyword);
-        
+
     	return sqlSession.selectList("board.searchList", map);
     }
     
-    public int selectBoardSearchListNum(String keyword) {
-    	return sqlSession.selectOne("board.searchListNum", keyword);
+    public int selectBoardSearchListNum(Map<String, Object> map) {
+    	return sqlSession.selectOne("board.searchListNum", map);
     }
     
-    public Map<String, Object> selectBoardDetail(int idx) {
-    	return sqlSession.selectOne("board.detail", idx);
+    public Map<String, Object> selectBoardDetail(Map<String, Object> map) {
+    	return sqlSession.selectOne("board.detail", map);
     }
     
     public void insertBoard(Map<String, Object> map) throws Exception{
@@ -70,8 +66,8 @@ public class BoardDAO {
         sqlSession.insert("board.insertFile", map);
     }
 	
-	public List<Map<String, Object>> selectFileList(int idx) throws Exception{
-		return sqlSession.selectList("board.selectFileList", idx);
+	public List<Map<String, Object>> selectFileList(Map<String, Object> map) throws Exception{
+		return sqlSession.selectList("board.selectFileList", map);
     }
 
 	public void deleteFile(Map<String, Object> map) {

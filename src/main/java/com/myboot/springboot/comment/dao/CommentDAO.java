@@ -18,12 +18,12 @@ public class CommentDAO {
     @Autowired
     private SqlSessionTemplate sqlSession;
  
-    public List<Map<String, Object>> selectCommentList(int idx) {
-    	return sqlSession.selectList("comment.list", idx);
+    public List<Map<String, Object>> selectCommentList(Map<String, Object> map) {
+    	return sqlSession.selectList("comment.list", map);
     }
     
-    public int selectCommentListNum(int idx) {
-    	return sqlSession.selectOne("comment.listNum", idx);
+    public int selectCommentListNum(Map<String, Object> map) {
+    	return sqlSession.selectOne("comment.listNum", map);
     }
     
     public void insertComment(Map<String, Object> map) {

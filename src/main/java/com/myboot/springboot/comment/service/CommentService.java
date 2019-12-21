@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface CommentService {
 
-	Map<String, Object> selectCommentList(int idx) throws Exception;
+	Map<String, Object> selectCommentList(Map<String, Object> map) throws Exception;
 	
 	void insertComment(Map<String, Object> map) throws Exception;
 	

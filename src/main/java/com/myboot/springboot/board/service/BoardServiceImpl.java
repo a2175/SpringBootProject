@@ -22,31 +22,31 @@ public class BoardServiceImpl implements BoardService {
     private BoardDAO boardDAO;
 	
 	@Override
-	public Map<String, Object> selectBoardList(int page_num) throws Exception {
+	public Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 
-		resultMap.put("list", boardDAO.selectBoardList(page_num));
+		resultMap.put("list", boardDAO.selectBoardList(map));
 		resultMap.put("listNum", boardDAO.selectBoardListNum());
 
 		return resultMap;
 	}
 	
 	@Override
-	public Map<String, Object> selectBoardSearchList(int page_num, String keyword) throws Exception {
+	public Map<String, Object> selectBoardSearchList(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		
-		resultMap.put("list", boardDAO.selectBoardSearchList(page_num, keyword));
-		resultMap.put("listNum", boardDAO.selectBoardSearchListNum(keyword));
+		resultMap.put("list", boardDAO.selectBoardSearchList(map));
+		resultMap.put("listNum", boardDAO.selectBoardSearchListNum(map));
 
 		return resultMap;
 	}
 	
 	@Override
-	public Map<String, Object> selectBoardDetail(int idx) throws Exception {
+	public Map<String, Object> selectBoardDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		
-		Map<String, Object> data = boardDAO.selectBoardDetail(idx);
-		List<Map<String,Object>> list = boardDAO.selectFileList(idx);
+		Map<String, Object> data = boardDAO.selectBoardDetail(map);
+		List<Map<String,Object>> list = boardDAO.selectFileList(map);
 		resultMap.put("data", data);
         resultMap.put("list", list);
         
@@ -92,7 +92,7 @@ public class BoardServiceImpl implements BoardService {
 		int isDeleted = boardDAO.deleteBoard(map);
 		
 		if(isDeleted == 1) {
-			List<Map<String,Object>> fileList = boardDAO.selectFileList((int)map.get("idx"));
+			List<Map<String,Object>> fileList = boardDAO.selectFileList(map);
 			
 			Map<String,Object> tempMap = null;
 			for(int i=0, size=fileList.size(); i<size; i++){

@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface BoardService {
 
-	Map<String, Object> selectBoardList(int page_num) throws Exception;
+	Map<String, Object> selectBoardList(Map<String, Object> map) throws Exception;
 	
-	Map<String, Object> selectBoardSearchList(int page_num, String keyword) throws Exception;
+	Map<String, Object> selectBoardSearchList(Map<String, Object> map) throws Exception;
 	
-	Map<String, Object> selectBoardDetail(int idx) throws Exception;
+	Map<String, Object> selectBoardDetail(Map<String, Object> map) throws Exception;
 	
 	void insertBoard(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	

@@ -16,8 +16,8 @@ public class CommonServiceImpl implements CommonService{
     private CommonDAO commonDAO;
 
     @Override
-    public Map<String, Object> selectFileInfo(int idx) throws Exception {
-        return commonDAO.selectFileInfo(idx);
+    public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
+        return commonDAO.selectFileInfo(map);
     }
 
 }

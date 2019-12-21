@@ -16,11 +16,11 @@ public class CommentServiceImpl implements CommentService {
     private CommentDAO commentDAO;
 
 	@Override
-	public Map<String, Object> selectCommentList(int idx) throws Exception {
+	public Map<String, Object> selectCommentList(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		
-		resultMap.put("list", commentDAO.selectCommentList(idx));
-		resultMap.put("listNum", commentDAO.selectCommentListNum(idx));
+		resultMap.put("list", commentDAO.selectCommentList(map));
+		resultMap.put("listNum", commentDAO.selectCommentListNum(map));
 
 		return resultMap;
 	}

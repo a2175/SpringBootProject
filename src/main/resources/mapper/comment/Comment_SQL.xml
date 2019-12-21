@@ -10,7 +10,7 @@
 			FROM 
 				comment
 			WHERE
-            	board_idx = #{idx}
+            	board_idx = #{postIdx}
 			ORDER BY idx
         ]]>
     </select>
@@ -22,7 +22,7 @@
 			FROM 
 				comment
 			WHERE
-            	board_idx = #{idx}
+            	board_idx = #{postIdx}
         ]]>
     </select>
      
@@ -34,7 +34,7 @@
 				name = #{name},
 				pw = #{pw},
 				content = #{content},
-				board_idx = #{idx},
+				board_idx = #{postIdx},
 				date = now()
     	]]>
 	</insert>

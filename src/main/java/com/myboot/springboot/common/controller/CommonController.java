@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myboot.springboot.common.common.CommandMap;
 import com.myboot.springboot.common.service.CommonService;
 
 @RestController
@@ -34,8 +34,8 @@ public class CommonController {
 	private CommonService commonService;
 	
 	@RequestMapping(value="/files/{idx}", method=RequestMethod.GET)
-	public void downloadFile(@PathVariable("idx") int idx, HttpServletResponse response) throws Exception{
-		Map<String,Object> map = commonService.selectFileInfo(idx);
+	public void downloadFile(CommandMap commandMap, HttpServletResponse response) throws Exception{
+		Map<String,Object> map = commonService.selectFileInfo(commandMap.getMap());
 		String storedFileName = (String)map.get("stored_file_name");
 		String originalFileName = (String)map.get("original_file_name");
 		

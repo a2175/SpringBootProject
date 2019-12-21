@@ -3,7 +3,7 @@
  
 <mapper namespace="common">
 
-	<select id="selectFileInfo" parameterType="Integer" resultType="hashmap">
+	<select id="selectFileInfo" parameterType="hashmap" resultType="hashmap">
     	<![CDATA[
         	SELECT
             	stored_file_name,

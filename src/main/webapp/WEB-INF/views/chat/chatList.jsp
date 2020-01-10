@@ -19,7 +19,7 @@
 </div>
 
 <script type="text/javascript">
-   	var socket = new SockJS("http://" + location.hostname + ":8080" + "${pageContext.request.contextPath}/chatWebSocket"); 
+   	var socket = new SockJS("${pageContext.request.contextPath}/chatWebSocket");
     var stompClient = Stomp.over(socket);
     
     stompClient.connect({}, function (frame) {

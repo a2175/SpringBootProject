@@ -33,7 +33,6 @@ public class FileUtils {
          
         MultipartFile multipartFile = null;
         String originalFileName = null;
-        String originalFileExtension = null;
         String storedFileName = null;
          
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
@@ -51,8 +50,7 @@ public class FileUtils {
             
             if(multipartFile.isEmpty() == false){
                 originalFileName = multipartFile.getOriginalFilename();
-                originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-                storedFileName = CommonUtils.getRandomString() + originalFileExtension;
+                storedFileName = CommonUtils.getRandomString();
                  
                 file = new File(filePath + storedFileName);
                 multipartFile.transferTo(file);
@@ -75,7 +73,6 @@ public class FileUtils {
          
         MultipartFile multipartFile = null;
         String originalFileName = null;
-        String originalFileExtension = null;
         String storedFileName = null;
          
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
@@ -90,8 +87,7 @@ public class FileUtils {
             
             if(multipartFile.isEmpty() == false){
                 originalFileName = multipartFile.getOriginalFilename();
-                originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-                storedFileName = CommonUtils.getRandomString() + originalFileExtension;
+                storedFileName = CommonUtils.getRandomString();
                  
                 multipartFile.transferTo(new File(filePath + storedFileName));
                  

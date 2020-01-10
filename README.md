@@ -3,7 +3,10 @@ SpringBoot + Mysql + MyBatis
 SpringBoot를 사용해서 만든 간단한 RESTful CRUD 게시판과
 WebSocket을 사용한 실시간 채팅 프로젝트입니다.
 
-#version = 1.92v
+#version = 1.93v
+
+[SpringBootProject 1.93v]
+1. FileUtils.java의 stored_file_name 확장자명 제거
 
 [SpringBootProject 1.92v]
 1. ArgumentResolver에서 @PathVariable를 처리하도록 변경

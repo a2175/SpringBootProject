@@ -51,14 +51,24 @@
         var length = body.querySelectorAll(".table>.tr").length;
         var prevScrollHeight = body.scrollHeight;
 
-        var str = "";
-        str += "<div class='tr'>" +
-                "<div class='lbl'>" + data.name + "</div>" +
-                "<div class='desc'>" + data.content + "</div>" +
-                "<div class='date'>" + data.date + "</div>" +
-               "</div>";
+		var tr = document.createElement("div");
+		tr.className = "tr";
+		body.querySelector('.table').appendChild(tr);
 
-        body.querySelector('.table').innerHTML += str;
+		var name = document.createElement("div");
+		name.className = "lbl";
+		name.textContent = data.name;
+		tr.appendChild(name);
+
+		var content = document.createElement("div");
+		content.className = "desc";
+		content.textContent = data.content;
+		tr.appendChild(content);
+
+		var date = document.createElement("div");
+		date.className = "date";
+		date.textContent = data.date;
+		tr.appendChild(date);
 
         if(Object.keys(data).length != length && body.scrollTop == (prevScrollHeight - body.offsetHeight))
           fn_moveScrollEnd();
@@ -86,17 +96,31 @@
 	    var length = body.querySelectorAll(".table>.tr").length;
 	    var prevScrollHeight = body.scrollHeight;
 
-	    var str = "";
-	    str += "<div class='table'>";
-	    for(var key in data) {
-	        str +=  "<div class='tr'>" +
-	                    "<div class='lbl'>" + data[key].name + "</div>" +
-	                    "<div class='desc'>" + data[key].content + "</div>" +
-	                    "<div class='date'>" + data[key].date.replace('T', ' ').substr(0, 19) + "</div>" +
-	                "</div>";
+		var table = document.createElement("div");
+        table.className = "table";
+
+		for(var key in data) {
+			var tr = document.createElement("div");
+			tr.className = "tr";
+			table.appendChild(tr);
+
+			var name = document.createElement("div");
+			name.className = "lbl";
+			name.textContent = data[key].name;
+			tr.appendChild(name);
+
+			var content = document.createElement("div");
+			content.className = "desc";
+			content.textContent = data[key].content;
+			tr.appendChild(content);
+
+			var date = document.createElement("div");
+			date.className = "date";
+			date.textContent = data[key].date.replace('T', ' ').substr(0, 19);
+			tr.appendChild(date);
 	    };
-	    str += "</div>";
-	    body.innerHTML = str;
+
+		body.appendChild(table);
     
 	    fn_moveScrollEnd();
 	}

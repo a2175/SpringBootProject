@@ -55,14 +55,22 @@
 </div>
 
 <script type="text/javascript">
-    var file_count = document.querySelectorAll('input[type=file]').length;
-	var deleteFileBtn = document.querySelectorAll('#deleteFile');
-	for(i=0; i<deleteFileBtn.length; i++) {
-		deleteFileBtn[i].addEventListener('click', function(e){
+    var fileCount = "${list.size()}";
+    var deleteFileBtn = document.querySelectorAll('#deleteFile');
+    
+    deleteFileBtn.forEach(function(btn) {
+        btn.addEventListener('click', function(e){
             e.preventDefault();
-            this.parentElement.innerHTML = "<input type='file' name='file_" + (file_count++) +"'>"
+
+            var fileDiv = this.parentElement;
+            fileDiv.textContent = "";
+
+            var file = document.createElement("input");
+            file.type = "file";
+            file.name = "file_" + fileCount++;
+            fileDiv.appendChild(file);
         });
-    }
+    })
 
     document.getElementById("form").addEventListener('submit', function(e){
         e.preventDefault();

@@ -116,7 +116,7 @@
 
 			var date = document.createElement("div");
 			date.className = "date";
-			date.textContent = data[key].date.replace('T', ' ').substr(0, 19);
+			date.textContent = now(new Date(data[key].date));
 			tr.appendChild(date);
 	    };
 
@@ -130,8 +130,10 @@
 	    body.scrollTop = body.scrollHeight;
 	}
 	
-	function now() {
-		var date = new Date();
+	function now(date) {
+		if(date == null) {
+			date = new Date();
+		}
 		var m = date.getMonth()+1;
 		var d = date.getDate();
 		var h = date.getHours();

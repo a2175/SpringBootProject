@@ -3,7 +3,10 @@ SpringBoot + Mysql + MyBatis
 SpringBoot를 사용해서 만든 간단한 RESTful CRUD 게시판과
 WebSocket을 사용한 실시간 채팅 프로젝트입니다.
 
-#version = 1.95v
+#version = 1.96v
+
+[SpringBootProject 1.96v]
+1. chat.jsp 시간 표시 오류 수정
 
 [SpringBootProject 1.95v]
 1. boardUpdate.jsp, chatList.jsp, common.js에서 innerHTML 사용을 createElement(), appendChild()로 대체
